@@ -1,0 +1,17 @@
+fill
+this
+file
+with
+the
+answers
+if
+you
+know
+them
+to
+check
+which
+words
+the
+algorithm
+missed

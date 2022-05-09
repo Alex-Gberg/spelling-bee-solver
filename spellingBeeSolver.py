@@ -1,9 +1,7 @@
 import re
-from tqdm import tqdm
-import enchant
 import keyboard
 
-def getLetters():
+def getLettersManual():
     letters = list(input("Input the letters as a string, with the first letter as the required letter:\n"))
     while len(letters) != 7 or (len(letters) > len(set(letters))):
         print("INVALID INPUT: Your input must consist of 7 unique letters!")
@@ -11,17 +9,15 @@ def getLetters():
 
     return letters
 
-# require >3 letters
 def makeRE(letters):
-    mustContainRE = f"(?=^.*{letters[0]}.*$)"
+    mustContain = f"(?=^.*{letters[0]}.*$)"
 
     usableLetters = "^["
     for a in letters:
         usableLetters += a
     usableLetters += "]{4,}$"
 
-
-    return re.compile(mustContainRE + usableLetters)
+    return re.compile(mustContain + usableLetters)
 
 def findPossibilities(pattern, fileName):
     possibilities = []
@@ -32,23 +28,36 @@ def findPossibilities(pattern, fileName):
 
     return possibilities
 
-def filterWithDictionary(possibilities):
-    realPossibilities = []
-    numEliminated = 0
-    pbar = tqdm(possibilities)
-    for p in pbar:
-        pbar.set_description(f"Words eliminated: {numEliminated}")
-        if enchant.Dict("en_US").check(p):
-            realPossibilities.append(p)
-        else:
-            numEliminated += 1
+def autoType(words):
+    for i, word in enumerate(words):
+        print(f"{i+1}: {word}")
+        keyboard.write(word+"\n", 0.02)
 
-    return realPossibilities
+def findMissingAnswers(guesses, answers):
+    missing = []
+    for a in answers:
+        a = a.strip()
+        if a not in guesses:
+            missing.append(a)
+
+    return missing
 
 if __name__ == "__main__":
-    letters = getLetters()
+    letters = getLettersManual()
+
     regEx = makeRE(letters)
     possibilities = findPossibilities(regEx, "words_alpha.txt")
-    print(f"{len(possibilities)} total possibilities:\n", possibilities)
-    realPossibilities = filterWithDictionary(possibilities)
-    print(f"{len(realPossibilities)} real possibilities:\n", realPossibilities)
+
+    print(f"{len(possibilities)} possibilities found!")
+    inp = input("Type 1 to display the words\nType 2 to auto type the words\n")
+    if  inp == "1":
+        print(possibilities)
+    elif inp == "2":
+        print("press \"esc\" to start typing")
+        keyboard.wait("esc")
+        autoType(possibilities)
+
+    if input("Check for missing answers (Only works if you have filled the answers.txt file)? (y/n): ") == "y":
+        with open("answers.txt") as answers:
+            missingAnswers = findMissingAnswers(possibilities, answers)
+        print(f"Missing Answers:\n{missingAnswers}")
