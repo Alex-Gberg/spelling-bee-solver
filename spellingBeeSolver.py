@@ -31,7 +31,7 @@ def findPossibilities(pattern, fileName):
 def autoType(words):
     for i, word in enumerate(words):
         print(f"{i+1}: {word}")
-        keyboard.write(word+"\n", 0.05)
+        keyboard.write(word+"\n", 0.1)
 
 def findMissingAnswers(guesses, answers):
     missing = []
