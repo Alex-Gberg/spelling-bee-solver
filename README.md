@@ -25,6 +25,9 @@
 - Compare with a list of answers (if known) to see what words the program missed
 
 ## Setup
+- Clone the Git repository
+- Open the directory in the terminal
+- Install the requirements with `pip install -r requirements.txt`
 - Use `sudo python3 wordleHelper.py` to run the program (sudo is required for the auto-type functionality)
 
 ## Usage

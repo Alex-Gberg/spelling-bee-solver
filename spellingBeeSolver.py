@@ -1,5 +1,5 @@
 import re
-import keyboard # TODO requirements file for keyboard module
+import keyboard
 
 def getLettersManual():
     letters = list(input("Input the letters as a string, with the first letter as the required letter:\n"))
@@ -11,9 +11,7 @@ def getLettersManual():
 
 def makeRE(letters):
     alphabet = "".join(letters)
-
     regEx = "^[" + alphabet + "]*" + letters[0] + "[" + alphabet + "]*$"
-
     return re.compile(regEx)
 
 def findPossibilities(pattern, fileName):
