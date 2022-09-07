@@ -1,5 +1,5 @@
 import re
-import keyboard
+import keyboard # TODO requirements file for keyboard module
 
 def getLettersManual():
     letters = list(input("Input the letters as a string, with the first letter as the required letter:\n"))
@@ -10,14 +10,11 @@ def getLettersManual():
     return letters
 
 def makeRE(letters):
-    mustContain = f"(?=^.*{letters[0]}.*$)"
+    alphabet = "".join(letters)
 
-    usableLetters = "^["
-    for a in letters:
-        usableLetters += a
-    usableLetters += "]{4,}$"
+    regEx = "^[" + alphabet + "]*" + letters[0] + "[" + alphabet + "]*$"
 
-    return re.compile(mustContain + usableLetters)
+    return re.compile(regEx)
 
 def findPossibilities(pattern, fileName):
     possibilities = []
@@ -42,6 +39,10 @@ def findMissingAnswers(guesses, answers):
 
     return missing
 
+def displayList(list):
+    for i, x in enumerate(list):
+        print(x, end=", ") if i != len(list)-1 else print(x)
+
 if __name__ == "__main__":
     letters = getLettersManual()
 
@@ -51,7 +52,7 @@ if __name__ == "__main__":
     print(f"{len(possibilities)} possibilities found!")
     inp = input("Type 1 to display the words\nType 2 to auto type the words\n")
     if  inp == "1":
-        print(possibilities)
+        displayList(possibilities)
     elif inp == "2":
         print("press \"esc\" to start typing")
         keyboard.wait("esc")
@@ -60,4 +61,5 @@ if __name__ == "__main__":
     if input("Check for missing answers (Only works if you have filled the answers.txt file)? (y/n): ") == "y":
         with open("answers.txt") as answers:
             missingAnswers = findMissingAnswers(possibilities, answers)
-        print(f"Missing Answers:\n{missingAnswers}")
+        print(f"Missing Answers:")
+        displayList(missingAnswers)
