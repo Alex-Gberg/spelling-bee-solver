@@ -36,6 +36,7 @@
 - You will then be asked if you want to be shown the list of possible words or if you want to auto-type the words
 - If you select auto-type, go back to the game in your browser and click on the text input field of the game, then press "esc" to start the input
 - Beware! If you click out of the game before the auto-typing is complete, it will continue to type wherever you click!
+- You may have to run the program a couple of times to make sure the game registers all of the inputs
 - Before closing the program you are able to compare the algorithm's answers with a text file containing the real answers, this will only work if you have filled the `answers.txt` file
 
 ## Project Status
