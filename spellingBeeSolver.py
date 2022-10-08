@@ -2,16 +2,15 @@ import re
 import keyboard
 
 def getLettersManual():
-    letters = list(input("Input the letters as a string, with the first letter as the required letter:\n"))
+    letters = input("Input the letters as a string, with the first letter as the required letter:\n")
     while len(letters) != 7 or (len(letters) > len(set(letters))):
         print("INVALID INPUT: Your input must consist of 7 unique letters!")
-        letters = list(input("Input the letters as a string, with the first letter as the required letter:\n"))
+        letters = input("Input the letters as a string, with the first letter as the required letter:\n")
 
     return letters
 
 def makeRE(letters):
-    alphabet = "".join(letters)
-    regEx = "^[" + alphabet + "]*" + letters[0] + "[" + alphabet + "]*$"
+    regEx = "^(?=.{4,})[" + letters + "]*" + letters[0] + "[" + letters + "]*$"
     return re.compile(regEx)
 
 def findPossibilities(pattern, fileName):
@@ -26,7 +25,7 @@ def findPossibilities(pattern, fileName):
 def autoType(words):
     for i, word in enumerate(words):
         print(f"{i+1}: {word}")
-        keyboard.write(word+"\n", 0.1)
+        keyboard.write(word+"\n", 0.05)
 
 def findMissingAnswers(guesses, answers):
     missing = []
@@ -43,7 +42,6 @@ def displayList(list):
 
 if __name__ == "__main__":
     letters = getLettersManual()
-
     regEx = makeRE(letters)
     possibilities = findPossibilities(regEx, "words_alpha.txt")
 
