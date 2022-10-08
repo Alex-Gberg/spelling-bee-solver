@@ -1,5 +1,5 @@
 # Spelling Bee Solver
-> This program solves the New York Times Spelling Bee game
+> This program solves the New York Times Spelling Bee game [Official Link](https://www.nytimes.com/puzzles/spelling-bee)/[Free Link](https://freebee.fun/play/)
 
 ## Table of Contents
 * [General Information](#general-information)
